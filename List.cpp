@@ -36,29 +36,32 @@ Node* add_element(Node* front)
 	delete front;
 	return(temp); // новый корень списка
 }
-bool del_element(Node* front)
+Node* del_element(Node *front)
 {
 	Node* temp = front;
-	Node* current = new Node;
+	Node* current;
 	int a;
 	std::cout << "Input value to del ";
 	std::cin >> a;
-	while ((temp->next->value != a) || (temp->next != nullptr))
+	if ((temp==front) &&(temp->value==a))
+	{
+		return deletehead(temp);
+	}
+	while ((temp->next->value != a) && (temp->next != nullptr))
 	{
 		temp = temp->next;
 	}
-	
 	if (temp->next == nullptr)
 	{
 		current = temp;
 		delete current;
-		return true;
+		return front;
 	}
 	else {
 		current = temp->next;
 		temp->next = current->next;
 		delete current;
-		return false;
+		return front;
 	}
 }
 
@@ -66,7 +69,7 @@ bool del_element(Node* front)
 void del_all(Node* front)
 {
 	Node* temp = front;
-    Node* current=front;
+    Node* current;
 	while (temp->next != nullptr)
 	{
 		temp = temp->next;
@@ -137,7 +140,9 @@ int main()
 		    else
 		    {
 			    output_list(front);
-			    if (del_element(front))
+			     front=del_element(front);
+		    	if (front==nullptr)
+		    	
 			    {
 				    b = 0;
 			    }
