@@ -29,41 +29,62 @@ Node* add_element(Node* front)
 	return current;
 }
 
-bool del_element(Node* front)
+ Node* deletehead(Node* front)
+{
+	Node* temp;
+	temp = front->next;
+	delete front;
+	return(temp); // новый корень списка
+}
+Node* del_element(Node *front)
 {
 	Node* temp = front;
+	Node* current;
 	int a;
 	std::cout << "Input value to del ";
 	std::cin >> a;
+	if ((temp==front) &&(temp->value==a))
+	{
+		return deletehead(temp);
+	}
 	while ((temp->next->value != a) && (temp->next != nullptr))
 	{
 		temp = temp->next;
 	}
-	Node* current = temp->next;
 	if (temp->next == nullptr)
 	{
-		temp->next = current;
+		current = temp;
 		delete current;
-		return true;
+		return front;
 	}
-	temp->next = current;
-	delete current;
-
-	return false;
+	else {
+		current = temp->next;
+		temp->next = current->next;
+		delete current;
+		return front;
+	}
 }
 
 
 void del_all(Node* front)
 {
 	Node* temp = front;
-    Node* current=front;
+    Node* current;
 	while (temp->next != nullptr)
 	{
 		temp = temp->next;
-
-		current = temp->next;
-		temp->next = current->next;
-		delete current;
+		if (temp->next==nullptr)
+		{
+			current = temp;
+			delete current;
+			
+		}
+		else
+		{
+			current = temp->next;
+			temp->next = current->next;
+			delete current;
+		}
 	}
 }
 
@@ -84,8 +105,8 @@ void clear()
 int main()
 {
     Node* front = new Node;
-    int a = 0;
-    int b = 0;
+    auto a = 0;
+    auto b = 0;
     while (a != 6)
     {
 	    std::cout << "1 Make list (1 element)" << std::endl << "2 add element" << std::endl << "3 del element"
@@ -119,7 +140,9 @@ int main()
 		    else
 		    {
 			    output_list(front);
-			    if (del_element(front))
+			     front=del_element(front);
+		    	if (front==nullptr)
+		    	
 			    {
 				    b = 0;
 			    }
