@@ -17,16 +17,75 @@ Node* make_list()
     current->next = nullptr;
     return current;
 }
-
-Node* add_element(Node* front)
+void add_element_any (Node* front,int num)
+{
+	Node* current=new Node;
+	current->value=num;
+	Node* temp=front;
+	while (temp->next->value<num)
+	{
+		temp=temp->next;
+	}
+	current->next=temp->next;
+	temp->next=current;
+}
+void add_element_last(Node* front,int num)
+{
+	Node* last=front;
+	Node* current=new Node;
+	current->value=num;
+	current->next=nullptr;
+	while (last->next!=nullptr)
+	{
+		last=last->next;
+	}
+	last->next=current;
+}
+Node* add_element_front(Node* front,int num)
 {
 	Node* current = new Node{};
-	int b;
-	std::cout << "Input element ";
-	std::cin >> b;
-	current->value = b;
+	current->value = num;
 	current->next = front;
 	return current;
+}
+Node* add_element_switch(Node* front,int num)
+{
+	Node* temp = front;
+	
+	if ((temp->next==nullptr)&&(temp->value==num)||(front->value==num))
+	{
+			std::cout << "ERROR element already exists ";
+			return front;
+	}
+	while (temp->next != nullptr)
+	{
+		temp = temp->next;
+		if (temp->value == num)
+		{
+			std::cout << "ERROR element already exists ";
+			return front;
+		}
+	}
+	if (front->value > num)
+	{
+		return add_element_front(front, num);
+	}
+	else
+
+		while (temp->next != nullptr)
+		{
+			temp = temp->next;
+		}
+	if (temp->value < num)
+	{
+		add_element_last(front, num);
+		return front;
+	}
+	else
+	{
+		add_element_any(front, num);
+		return front;
+	}
 }
 
  Node* del_front(Node* front)
@@ -107,7 +166,7 @@ int main()
     Node* front = new Node;
     auto a = 0;
     auto b = 0;
-    while (a != 6)
+    while (a != 7)
     {
 	    std::cout << "1 Make list (1 element)" << std::endl << "2 add element" << std::endl << "3 del element"
 		    << std::endl;
@@ -134,7 +193,10 @@ int main()
 		    }
 		    else
 		    {
-			    front = add_element(front);
+		    	int num;
+		        std::cout << "Enter element";
+		        std::cin >> num;
+			    front = add_element_switch(front,num);
 		    }
 		    break;
 	    case 3:
@@ -174,6 +236,9 @@ int main()
 		    }
 		    else { output_list(front); }
 		    break;
+		case 6: if(b==1) del_all(front);
+	    		a=7;
+	    		break;
 	    default:
 		    break;
 	    }
