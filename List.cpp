@@ -29,7 +29,7 @@ Node* add_element(Node* front)
 	return current;
 }
 
- Node* deletehead(Node* front)
+ Node* del_front(Node* front)
 {
 	Node* temp;
 	temp = front->next;
@@ -45,7 +45,7 @@ Node* del_element(Node *front)
 	std::cin >> a;
 	if ((temp==front) &&(temp->value==a))
 	{
-		return deletehead(temp);
+		return del_front(temp);
 	}
 	while ((temp->next->value != a) && (temp->next != nullptr))
 	{
@@ -77,7 +77,7 @@ void del_all(Node* front)
 		{
 			current = temp;
 			delete current;
-			
+			return;
 		}
 		else
 		{
@@ -117,8 +117,14 @@ int main()
 	    switch (a)
 	    {
 	    case 1:
+			if (b==0)
+			{
 		    front = make_list();
 		    b = 1;
+			}else
+			{
+				std::cout << "List is created";
+			}
 		    break;
 	    case 2:
 		    if (b == 0)
