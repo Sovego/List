@@ -10,7 +10,7 @@ struct Node
 Node* make_list()
 {
     int b;
-    Node* current = new Node;
+	Node* current { new Node};
     std::cout << "Input first element ";
     std::cin >> b;
     current->value = b;
@@ -19,7 +19,7 @@ Node* make_list()
 }
 void add_element_any (Node* front,int num)
 {
-	Node* current=new Node;
+	Node* current{new Node};
 	current->value=num;
 	Node* temp=front;
 	while (temp->next->value<num)
@@ -31,8 +31,8 @@ void add_element_any (Node* front,int num)
 }
 void add_element_last(Node* front,int num)
 {
-	Node* last=front;
-	Node* current=new Node;
+	Node* last{front};
+	Node* current{new Node};
 	current->value=num;
 	current->next=nullptr;
 	while (last->next!=nullptr)
@@ -43,14 +43,14 @@ void add_element_last(Node* front,int num)
 }
 Node* add_element_front(Node* front,int num)
 {
-	Node* current = new Node{};
+	Node* current { new Node};
 	current->value = num;
 	current->next = front;
 	return current;
 }
 Node* add_element_switch(Node* front,int num)
 {
-	Node* temp = front;
+	Node* temp {front};
 	
 	if ((temp->next==nullptr)&&(temp->value==num)||(front->value==num))
 	{
@@ -90,14 +90,13 @@ Node* add_element_switch(Node* front,int num)
 
  Node* del_front(Node* front)
 {
-	Node* temp;
-	temp = front->next;
+	 Node* temp {front->next};
 	delete front;
 	return(temp); // новый корень списка
 }
 Node* del_element(Node *front)
 {
-	Node* temp = front;
+	Node* temp {front};
 	Node* current;
 	int a;
 	std::cout << "Input value to del ";
@@ -127,7 +126,7 @@ Node* del_element(Node *front)
 
 void del_all(Node* front)
 {
-	Node* temp = front;
+	Node* temp {front};
     Node* current;
 	while (temp->next != nullptr)
 	{
@@ -163,7 +162,7 @@ void clear()
 
 int main()
 {
-    Node* front = new Node;
+	Node* front {new Node};
     auto a = 0;
     auto b = 0;
     while (a != 7)
